@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { CompoundEntityRef } from '@backstage/catalog-model';
+import { TechDocsReaderPageProvider } from '@backstage/plugin-techdocs-react';
 import React, {
   Dispatch,
   SetStateAction,
@@ -53,6 +55,7 @@ export const useMkdocsReaderPage = () => useContext(MkDocsReaderPageContext);
  * @public
  */
 export type MkDocsReaderPageProps = {
+  entityRef: CompoundEntityRef;
   children: (content: JSX.Element) => JSX.Element;
 };
 
@@ -61,14 +64,19 @@ export type MkDocsReaderPageProps = {
  * @param props - See {@link MkDocsReaderPageProps}.
  * @public
  */
-export const MkDocsReaderPage = ({ children }: MkDocsReaderPageProps) => {
+export const MkDocsReaderPage = ({
+  entityRef,
+  children,
+}: MkDocsReaderPageProps) => {
   const [shadowRoot, setShadowRoot] = useState<ShadowRoot>();
 
   const value = { shadowRoot, setShadowRoot };
 
   return (
     <MkDocsReaderPageContext.Provider value={value}>
-      {children(<MkDocsReaderContent />)}
+      <TechDocsReaderPageProvider entityRef={entityRef}>
+        {children(<MkDocsReaderContent />)}
+      </TechDocsReaderPageProvider>
     </MkDocsReaderPageContext.Provider>
   );
 };

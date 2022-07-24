@@ -37,7 +37,6 @@ export {
   useTechDocsReaderPageContent,
   withTechDocsReaderPageContentProvider,
   TechDocsShadowDom,
-  useShadowRoot,
   useShadowRootElements,
   useShadowRootSelection,
   useShadowDomStylesLoading,

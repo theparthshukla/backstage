@@ -15,5 +15,3 @@
  */
 
 export * from './MkDocsReaderPage';
-
-export * from './MkDocsReaderContent';

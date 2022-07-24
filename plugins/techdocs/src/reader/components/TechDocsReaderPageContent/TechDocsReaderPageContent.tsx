@@ -69,6 +69,7 @@ export const TechDocsReaderPageContent =
       const classes = useStyles();
 
       const {
+        ready,
         entityRef,
         entityMetadata: {
           value: entityMetadata,
@@ -87,7 +88,7 @@ export const TechDocsReaderPageContent =
             <Grid xs={12} item>
               <TechDocsStateIndicator />
             </Grid>
-            {withSearch && (
+            {ready && withSearch && (
               <Grid className={classes.search} xs="auto" item>
                 <TechDocsSearch
                   entityId={entityRef}

@@ -19,13 +19,13 @@ import { Portal } from '@material-ui/core';
 import {
   useTechDocsAddons,
   TechDocsAddonLocations as locations,
-  useTechDocsReaderPage,
 } from '@backstage/plugin-techdocs-react';
+import { useMkdocsReaderPage } from '../MkDocsReaderPage';
 
 export const MkDocsReaderContentAddons = () => {
   const addons = useTechDocsAddons();
 
-  const { shadowRoot } = useTechDocsReaderPage();
+  const { shadowRoot } = useMkdocsReaderPage();
 
   const contentElement = shadowRoot?.querySelector(
     '[data-md-component="content"]',

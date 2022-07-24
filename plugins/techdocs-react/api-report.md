@@ -201,17 +201,18 @@ export const techdocsStorageApiRef: ApiRef<TechDocsStorageApi>;
 export const useShadowDomStylesLoading: (element: Element | null) => boolean;
 
 // @public
-export const useShadowRoot: () => ShadowRoot | undefined;
-
-// @public
 export const useShadowRootElements: <
   TReturnedElement extends HTMLElement = HTMLElement,
 >(
   selectors: string[],
+  shadowRoot?: ShadowRoot,
 ) => TReturnedElement[];
 
 // @public
-export const useShadowRootSelection: (wait?: number) => Selection | null;
+export const useShadowRootSelection: (
+  wait?: number,
+  shadowRoot?: ShadowRoot,
+) => Selection | null;
 
 // @public
 export const useTechDocsAddons: () => {

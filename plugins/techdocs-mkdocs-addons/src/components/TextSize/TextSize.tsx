@@ -39,6 +39,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 
 import { BackstageTheme } from '@backstage/theme';
 import { useShadowRootElements } from '@backstage/plugin-techdocs-react';
+import { useMkdocsReaderPage } from '@backstage/plugin-techdocs-mkdocs-react';
 
 const boxShadow =
   '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
@@ -141,7 +142,8 @@ export const TextSizeAddon = () => {
   const classes = useStyles();
   const theme = useTheme<BackstageTheme>();
 
-  const [body] = useShadowRootElements(['body']);
+  const { shadowRoot } = useMkdocsReaderPage();
+  const [body] = useShadowRootElements(['body'], shadowRoot);
 
   const [value, setValue] = useState<number>(() => {
     const initialValue = localStorage?.getItem(settings.key);

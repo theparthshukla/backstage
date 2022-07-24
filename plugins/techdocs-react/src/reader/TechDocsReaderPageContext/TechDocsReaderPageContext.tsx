@@ -54,7 +54,27 @@ export type TechDocsReaderPageValue = {
   metadata: AsyncState<TechDocsMetadata>;
   entityRef: CompoundEntityRef;
   entityMetadata: AsyncState<TechDocsEntityMetadata>;
+  /**
+   * @deprecated Was extracted to `@backstage/plugin-tecgdocs-mkdocs-react` package.
+   * @remarks
+   * Use `useMkdocsReaderPage` as in the example below to get `shadowRoot`.
+   * @example
+   * ```
+   * import { useMkdocsReaderPage } from '@backstage/plugin-techdocs-mkdocs-react';
+   * const { shadowRoot } = useMkdocsReaderPage();
+   * ```
+   */
   shadowRoot?: ShadowRoot;
+  /**
+   * @deprecated Was extracted to `@backstage/plugin-tecgdocs-mkdocs-react` package.
+   * @remarks
+   * Use `useMkdocsReaderPage` as in the example below to set `shadowRoot`.
+   * @example
+   * ```
+   * import { useMkdocsReaderPage } from '@backstage/plugin-techdocs-mkdocs-react';
+   * const { setShadowRoot } = useMkdocsReaderPage();
+   * ```
+   */
   setShadowRoot: Dispatch<SetStateAction<ShadowRoot | undefined>>;
   title: string;
   setTitle: Dispatch<SetStateAction<string>>;
@@ -120,6 +140,7 @@ export const TechDocsReaderPageProvider = memo(
       return techdocsApi.getEntityMetadata(entityRef);
     }, [entityRef]);
 
+    const [shadowRoot, setShadowRoot] = useState<ShadowRoot>();
     // Metadata is undefined when documentation has never been built before
     // So, this "ready" state exists to re-request metadata after first build.
     // Maybe it could be replaced by a useAsyncRetry function in the future...
@@ -128,22 +149,19 @@ export const TechDocsReaderPageProvider = memo(
     const [subtitle, setSubtitle] = useState(
       defaultTechDocsReaderPageValue.subtitle,
     );
-    const [shadowRoot, setShadowRoot] = useState<ShadowRoot | undefined>(
-      defaultTechDocsReaderPageValue.shadowRoot,
-    );
 
     const value = {
       metadata,
       entityRef,
       entityMetadata,
-      shadowRoot,
-      setShadowRoot,
-      ready,
-      setReady,
       title,
       setTitle,
       subtitle,
       setSubtitle,
+      ready,
+      setReady,
+      shadowRoot,
+      setShadowRoot,
     };
     const versionedValue = createVersionedValueMap({ 1: value });
 

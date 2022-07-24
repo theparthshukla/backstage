@@ -28,6 +28,7 @@ import {
 } from '@backstage/plugin-techdocs-react';
 
 import { PAGE_EDIT_LINK_SELECTOR } from './constants';
+import { useMkdocsReaderPage } from '@backstage/plugin-techdocs-mkdocs-react';
 
 const resolveBlobUrl = (url: string, type: string) => {
   if (type === 'github') {
@@ -70,8 +71,12 @@ export const getBody = (selection: Selection, markdownUrl: string) => {
 export const useGitTemplate = (debounceTime?: number) => {
   const initialTemplate = { title: '', body: '' };
 
-  const selection = useShadowRootSelection(debounceTime);
-  const [editLink] = useShadowRootElements([PAGE_EDIT_LINK_SELECTOR]);
+  const { shadowRoot } = useMkdocsReaderPage();
+  const selection = useShadowRootSelection(debounceTime, shadowRoot);
+  const [editLink] = useShadowRootElements(
+    [PAGE_EDIT_LINK_SELECTOR],
+    shadowRoot,
+  );
   const url = (editLink as HTMLAnchorElement)?.href ?? '';
 
   const scmIntegrationsApi = useApi(scmIntegrationsApiRef);
@@ -91,7 +96,11 @@ export const useGitTemplate = (debounceTime?: number) => {
 export const useGitRepository = () => {
   const scmIntegrationsApi = useApi(scmIntegrationsApiRef);
 
-  const [editLink] = useShadowRootElements([PAGE_EDIT_LINK_SELECTOR]);
+  const { shadowRoot } = useMkdocsReaderPage();
+  const [editLink] = useShadowRootElements(
+    [PAGE_EDIT_LINK_SELECTOR],
+    shadowRoot,
+  );
   const url = (editLink as HTMLAnchorElement)?.href ?? '';
 
   if (!url) return null;

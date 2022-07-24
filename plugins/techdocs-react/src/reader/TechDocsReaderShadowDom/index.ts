@@ -22,8 +22,4 @@ export {
 
 export type { TechDocsShadowDomProps } from './TechDocsReaderShadowDom';
 
-export {
-  useShadowRoot,
-  useShadowRootElements,
-  useShadowRootSelection,
-} from './hooks';
+export { useShadowRootElements, useShadowRootSelection } from './hooks';

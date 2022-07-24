@@ -15,17 +15,6 @@
  */
 import { useState, useEffect, useMemo } from 'react';
 import debounce from 'lodash/debounce';
-import { useTechDocsReaderPage } from '../TechDocsReaderPageContext';
-
-/**
- * Hook for use within TechDocs addons that provides access to the underlying
- * shadow root of the current page, allowing the DOM within to be mutated.
- * @public
- */
-export const useShadowRoot = () => {
-  const { shadowRoot } = useTechDocsReaderPage();
-  return shadowRoot;
-};
 
 /**
  * Convenience hook for use within TechDocs addons that provides access to
@@ -37,8 +26,8 @@ export const useShadowRootElements = <
   TReturnedElement extends HTMLElement = HTMLElement,
 >(
   selectors: string[],
+  shadowRoot?: ShadowRoot,
 ): TReturnedElement[] => {
-  const shadowRoot = useShadowRoot();
   if (!shadowRoot) return [];
   return selectors
     .map(selector => shadowRoot?.querySelectorAll<TReturnedElement>(selector))
@@ -60,8 +49,10 @@ const isValidSelection = (newSelection: Selection) => {
  * Hook for retreiving a selection within the ShadowRoot.
  * @public
  */
-export const useShadowRootSelection = (wait: number = 0) => {
-  const shadowRoot = useShadowRoot();
+export const useShadowRootSelection = (
+  wait: number = 0,
+  shadowRoot?: ShadowRoot,
+) => {
   const [selection, setSelection] = useState<Selection | null>(null);
   const handleSelectionChange = useMemo(
     () =>

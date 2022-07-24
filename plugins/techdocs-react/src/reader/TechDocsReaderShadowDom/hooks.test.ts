@@ -14,11 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  useShadowRoot,
-  useShadowRootElements,
-  useShadowRootSelection,
-} from './hooks';
+import { useShadowRootElements, useShadowRootSelection } from './hooks';
 import { renderHook } from '@testing-library/react-hooks';
 import { fireEvent, waitFor } from '@testing-library/react';
 
@@ -41,12 +37,6 @@ const mockShadowRoot = () => {
 };
 
 const shadowRoot = mockShadowRoot();
-
-jest.mock('../TechDocsReaderPageContext', () => {
-  return {
-    useTechDocsReaderPage: () => ({ shadowRoot }),
-  };
-});
 
 const selection = {
   type: 'Range',
@@ -71,17 +61,11 @@ const selection = {
 getSelection.mockReturnValue(selection);
 
 describe('hooks', () => {
-  describe('useShadowRoot', () => {
-    it('should return shadow root', async () => {
-      const { result } = renderHook(() => useShadowRoot());
-
-      expect(result.current?.innerHTML).toBe(shadowRoot.innerHTML);
-    });
-  });
-
   describe('useShadowRootElements', () => {
     it('should return shadow root elements based on selector', () => {
-      const { result } = renderHook(() => useShadowRootElements(['h1']));
+      const { result } = renderHook(() =>
+        useShadowRootElements(['h1'], shadowRoot),
+      );
 
       expect(result.current).toHaveLength(1);
     });
@@ -89,7 +73,9 @@ describe('hooks', () => {
 
   describe('useShadowRootSelection', () => {
     it('should return shadow root selection', async () => {
-      const { result } = renderHook(() => useShadowRootSelection(0));
+      const { result } = renderHook(() =>
+        useShadowRootSelection(0, shadowRoot),
+      );
 
       expect(result.current).toBeNull();
 

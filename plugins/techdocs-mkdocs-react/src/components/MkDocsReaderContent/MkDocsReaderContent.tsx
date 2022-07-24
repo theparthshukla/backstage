@@ -23,13 +23,15 @@ import {
 
 import { useMkDocsReaderDom } from '../useMkDocsReaderDom';
 import { MkDocsReaderContentAddons } from '../MkDocsReaderContentAddons';
+import { useMkdocsReaderPage } from '../MkDocsReaderPage';
 
 /**
  * TechDocs reader page content that uses mkdocs.
  * @public
  */
 export const MkDocsReaderContent = () => {
-  const { entityRef, setReady, setShadowRoot } = useTechDocsReaderPage();
+  const { entityRef, setReady } = useTechDocsReaderPage();
+  const { setShadowRoot } = useMkdocsReaderPage();
 
   const dom = useMkDocsReaderDom(entityRef);
 

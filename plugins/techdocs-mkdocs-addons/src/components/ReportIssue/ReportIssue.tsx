@@ -32,6 +32,7 @@ import {
   useShadowRootElements,
   useShadowRootSelection,
 } from '@backstage/plugin-techdocs-react';
+import { useMkdocsReaderPage } from '@backstage/plugin-techdocs-mkdocs-react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,16 +82,18 @@ export const ReportIssueAddon = ({
 
   const defaultTemplate = useGitTemplate(debounceTime);
 
-  const selection = useShadowRootSelection(debounceTime);
+  const { shadowRoot } = useMkdocsReaderPage();
+  const selection = useShadowRootSelection(debounceTime, shadowRoot);
 
-  const [mainContent, feedbackLink] = useShadowRootElements([
-    PAGE_MAIN_CONTENT_SELECTOR,
-    PAGE_FEEDBACK_LINK_SELECTOR,
-  ]);
+  const [mainContent, feedbackLink] = useShadowRootElements(
+    [PAGE_MAIN_CONTENT_SELECTOR, PAGE_FEEDBACK_LINK_SELECTOR],
+    shadowRoot,
+  );
 
-  let [feedbackContainer] = useShadowRootElements([
-    ADDON_FEEDBACK_CONTAINER_SELECTOR,
-  ]);
+  let [feedbackContainer] = useShadowRootElements(
+    [ADDON_FEEDBACK_CONTAINER_SELECTOR],
+    shadowRoot,
+  );
 
   if (feedbackLink) {
     feedbackLink.style.display = 'none';
