@@ -71,12 +71,6 @@ import {
   TechDocsReaderPage,
   techdocsPlugin,
 } from '@backstage/plugin-techdocs';
-import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-import {
-  ExpandableNavigation,
-  ReportIssue,
-  TextSize,
-} from '@backstage/plugin-techdocs-mkdocs-addons';
 import {
   UserSettingsPage,
   UserSettingsTab,
@@ -93,6 +87,7 @@ import { Root } from './components/Root';
 import { LowerCaseValuePickerFieldExtension } from './components/scaffolder/customScaffolderExtensions';
 import { defaultPreviewTemplate } from './components/scaffolder/defaultPreviewTemplate';
 import { searchPage } from './components/search/SearchPage';
+import { techDocsPage } from './components/techdocs/TechDocsPage';
 import { providers } from './identityProviders';
 import * as plugins from './plugins';
 
@@ -185,11 +180,7 @@ const routes = (
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
     >
-      <TechDocsAddons>
-        <ExpandableNavigation />
-        <ReportIssue />
-        <TextSize />
-      </TechDocsAddons>
+      {techDocsPage}
     </Route>
     <Route
       path="/create"

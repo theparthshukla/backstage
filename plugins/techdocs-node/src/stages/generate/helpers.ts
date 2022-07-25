@@ -28,6 +28,7 @@ import { Logger } from 'winston';
 import { ParsedLocationAnnotation } from '../../helpers';
 import { SupportedGeneratorKey } from './types';
 import { getFileTreeRecursively } from '../publish/helpers';
+import { JsonObject } from '@backstage/types';
 
 // TODO: Implement proper support for more generators.
 export function getGeneratorKey(entity: Entity): SupportedGeneratorKey {
@@ -181,6 +182,19 @@ export const getMkdocsYml = async (
 };
 
 /**
+ * Parses mkdocs config file from string to an object
+ *
+ * @param mkdocsYmlFileString - The string contents of the loaded
+ *   mkdocs.yml or equivalent of a docs site
+ * @returns the parsed mkdocs config file
+ */
+export const parseMkdocsYaml = (mkdocsYmlFileString: string) => {
+  return yaml.load(mkdocsYmlFileString, {
+    schema: MKDOCS_SCHEMA,
+  });
+};
+
+/**
  * Validating mkdocs config file for incorrect/insecure values
  * Throws on invalid configs
  *
@@ -193,9 +207,7 @@ export const validateMkdocsYaml = async (
   inputDir: string,
   mkdocsYmlFileString: string,
 ): Promise<string | undefined> => {
-  const mkdocsYml = yaml.load(mkdocsYmlFileString, {
-    schema: MKDOCS_SCHEMA,
-  });
+  const mkdocsYml = parseMkdocsYaml(mkdocsYmlFileString);
 
   if (mkdocsYml === null || typeof mkdocsYml !== 'object') {
     return undefined;
@@ -270,6 +282,7 @@ export const patchIndexPreBuild = async ({
 export const createOrUpdateMetadata = async (
   techdocsMetadataPath: string,
   logger: Logger,
+  data: JsonObject = {},
 ): Promise<void> => {
   const techdocsMetadataDir = techdocsMetadataPath
     .split(path.sep)
@@ -293,6 +306,7 @@ export const createOrUpdateMetadata = async (
     throw new Error(message);
   }
 
+  json = { ...data, ...json };
   json.build_timestamp = Date.now();
 
   // Get and write generated files to the metadata JSON. Each file string is in
