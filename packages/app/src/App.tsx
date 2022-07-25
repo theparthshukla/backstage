@@ -76,7 +76,7 @@ import {
   ExpandableNavigation,
   ReportIssue,
   TextSize,
-} from '@backstage/plugin-techdocs-module-addons-contrib';
+} from '@backstage/plugin-techdocs-mkdocs-addons';
 import {
   UserSettingsPage,
   UserSettingsTab,
@@ -96,7 +96,6 @@ import { searchPage } from './components/search/SearchPage';
 import { providers } from './identityProviders';
 import * as plugins from './plugins';
 
-import { techDocsPage } from './components/techdocs/TechDocsPage';
 import { ApacheAirflowPage } from '@backstage/plugin-apache-airflow';
 import { PermissionedRoute } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common';
@@ -186,7 +185,6 @@ const routes = (
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
     >
-      {techDocsPage}
       <TechDocsAddons>
         <ExpandableNavigation />
         <ReportIssue />
