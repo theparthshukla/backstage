@@ -71,6 +71,14 @@ export const RELATION_PROVIDES_API = 'providesApi';
  */
 export const RELATION_API_PROVIDED_BY = 'apiProvidedBy';
 
+export const RELATION_DATA_PROVIDED_BY = 'dataProvidedBy';
+
+export const RELATION_DATA_CONSUMED_BY = 'dataConsumedBy';
+
+export const RELATION_PROVIDES_DATA = 'providesData';
+
+export const RELATION_CONSUMES_DATA = 'consumesData';
+
 /**
  * A relation denoting a dependency on another entity. Reversed direction of
  * {@link RELATION_DEPENDENCY_OF}.

@@ -147,6 +147,8 @@ export type EntityMeta = JsonObject & {
    */
   tags?: string[];
 
+  data?: string;
+
   /**
    * A list of external hyperlinks related to the entity.
    */

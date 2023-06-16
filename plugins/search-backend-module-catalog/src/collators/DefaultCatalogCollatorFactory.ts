@@ -123,7 +123,8 @@ export class DefaultCatalogCollatorFactory implements DocumentCollatorFactory {
           location: this.applyArgsToFormat(this.locationTemplate, {
             namespace: entity.metadata.namespace || 'default',
             kind: entity.kind,
-            name: entity.metadata.name,
+            data: entity.metadata.data || 'default',
+            name: entity.metadata.name
           }),
         };
       }

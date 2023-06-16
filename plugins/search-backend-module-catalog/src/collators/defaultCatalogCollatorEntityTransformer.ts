@@ -19,7 +19,18 @@ import { CatalogCollatorEntityTransformer } from './CatalogCollatorEntityTransfo
 
 const getDocumentText = (entity: Entity): string => {
   const documentTexts: string[] = [];
-  documentTexts.push(entity.metadata.description || '');
+  if (entity.metadata.description) {
+    documentTexts.push(entity.metadata.description || '');
+  }
+
+  if (Array.isArray(entity.metadata.data)) {
+    entity.metadata.data.forEach((data: string) => {
+      if (data.includes(':')) {
+        const [X, Y] = data.split(':');
+        documentTexts.push(`"${X}" provides data [${Y}]`);
+      }
+    });
+  }
 
   if (isUserEntity(entity) || isGroupEntity(entity)) {
     if (entity.spec?.profile?.displayName) {
@@ -42,5 +53,6 @@ export const defaultCatalogCollatorEntityTransformer: CatalogCollatorEntityTrans
       kind: entity.kind,
       lifecycle: (entity.spec?.lifecycle as string) || '',
       owner: (entity.spec?.owner as string) || '',
+      data: entity.metadata.data || 'default',
     };
   };

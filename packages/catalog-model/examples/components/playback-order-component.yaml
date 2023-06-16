@@ -3,6 +3,7 @@ kind: Component
 metadata:
   name: playback-order
   description: Playback Order
+  data: ['starwars-graphql:dada, two, three', 'audio-playback:pinball, data', 'podcast:wizard, data two']
   tags:
     - java
     - playback
@@ -10,4 +11,8 @@ spec:
   type: service
   lifecycle: production
   owner: user:guest
+  providesData:
+    - to: [ 'api:starwars-graphql', 'domain:playback']
+  consumesData:
+    - from: ['system:audio-playback', 'system:podcast']
   system: audio-playback

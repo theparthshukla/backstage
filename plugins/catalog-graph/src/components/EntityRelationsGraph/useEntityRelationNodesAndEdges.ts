@@ -24,15 +24,15 @@ import { useEntityRelationGraph } from './useEntityRelationGraph';
  * Generate nodes and edges to render the entity graph.
  */
 export function useEntityRelationNodesAndEdges({
-  rootEntityRefs,
-  maxDepth = Number.POSITIVE_INFINITY,
-  unidirectional = true,
-  mergeRelations = true,
-  kinds,
-  relations,
-  onNodeClick,
-  relationPairs = ALL_RELATION_PAIRS,
-}: {
+                                                 rootEntityRefs,
+                                                 maxDepth = Number.POSITIVE_INFINITY,
+                                                 unidirectional = true,
+                                                 mergeRelations = true,
+                                                 kinds,
+                                                 relations,
+                                                 onNodeClick,
+                                                 relationPairs = ALL_RELATION_PAIRS,
+                                               }: {
   rootEntityRefs: string[];
   maxDepth?: number;
   unidirectional?: boolean;
@@ -127,6 +127,7 @@ export function useEntityRelationNodesAndEdges({
                   from: left === rel.type ? entityRef : rel.targetRef,
                   to: left === rel.type ? rel.targetRef : entityRef,
                   relations: pair,
+                  metadata: entity.metadata.data,
                   label: 'visible',
                 });
               } else {
@@ -134,6 +135,7 @@ export function useEntityRelationNodesAndEdges({
                   from: entityRef,
                   to: rel.targetRef,
                   relations: [rel.type],
+                  metadata: entity.metadata.data,
                   label: 'visible',
                 });
               }

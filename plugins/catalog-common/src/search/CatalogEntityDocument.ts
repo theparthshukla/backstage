@@ -25,6 +25,7 @@ export interface CatalogEntityDocument extends IndexableDocument {
   componentType: string;
   type: string;
   namespace: string;
+  data: string;
   kind: string;
   lifecycle: string;
   owner: string;

@@ -152,7 +152,7 @@ export type EntityEnvelope = {
 // @public
 export function entityEnvelopeSchemaValidator<
   T extends EntityEnvelope = EntityEnvelope,
->(schema?: unknown): (data: unknown) => T;
+  >(schema?: unknown): (data: unknown) => T;
 
 // @public
 export function entityKindSchemaValidator<T extends Entity>(
@@ -341,10 +341,10 @@ export function parseEntityRef(
   ref:
     | string
     | {
-        kind?: string;
-        namespace?: string;
-        name: string;
-      },
+    kind?: string;
+    namespace?: string;
+    name: string;
+  },
   context?: {
     defaultKind?: string;
     defaultNamespace?: string;
@@ -362,6 +362,12 @@ export const RELATION_API_CONSUMED_BY = 'apiConsumedBy';
 
 // @public
 export const RELATION_API_PROVIDED_BY = 'apiProvidedBy';
+
+// @public
+export const RELATION_DATA_CONSUMED_BY = 'dataConsumedBy';
+
+// @public
+export const RELATION_DATA_PROVIDED_BY = 'dataProvidedBy';
 
 // @public
 export const RELATION_CHILD_OF = 'childOf';
@@ -431,10 +437,10 @@ export function stringifyEntityRef(
   ref:
     | Entity
     | {
-        kind: string;
-        namespace?: string;
-        name: string;
-      },
+    kind: string;
+    namespace?: string;
+    name: string;
+  },
 ): string;
 
 // @public

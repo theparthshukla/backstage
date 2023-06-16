@@ -125,6 +125,7 @@ export class DefaultCatalogCollator {
         componentType: entity.spec?.type?.toString() || 'other',
         type: entity.spec?.type?.toString() || 'other',
         namespace: entity.metadata.namespace || 'default',
+        data: entity.metadata.data || 'default',
         kind: entity.kind,
         lifecycle: (entity.spec?.lifecycle as string) || '',
         owner: (entity.spec?.owner as string) || '',

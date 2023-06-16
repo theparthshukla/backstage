@@ -27,6 +27,7 @@ export type EntityEdgeData = {
    * Up to two relations that are connecting an entity.
    */
   relations: string[];
+  metadata: string;
   /**
    * Whether the entity is visible or not.
    */

@@ -2,6 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: starwars-graphql
+  data: ['podcast:wootwoot']
   description: SWAPI GraphQL Schema
   links:
     - url: https://github.com/graphql/swapi-graphql
@@ -10,6 +11,10 @@ metadata:
 spec:
   type: graphql
   lifecycle: production
+  consumesData:
+    - from: [ 'component:playback-order']
+  providesData:
+    - to: [ 'system:podcast' ]
   owner: team-b
   definition: |
     schema {
